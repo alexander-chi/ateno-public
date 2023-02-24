@@ -5,13 +5,9 @@ export function Index() {
    * Note: The corresponding styles are in the ./index.scss file.
    */
   return (
-    <div className={'home--content'}>
-      <div className={'home--content__slogan'}>
-        <p className={'slogan'}>Elevate events</p>
-        <p className={'slogan'}>through better tech</p>
-      </div>
+    <div>
+      <h1>Managed Event EPOS</h1>
     </div>
-
   );
 }
 
