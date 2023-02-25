@@ -10,7 +10,7 @@
   transition: top ease-in-out 0.5s;
   text-decoration: none;
   text-underline: none;
-  color: black;
+  color: white;
 
 
 
@@ -64,5 +64,17 @@
   @media only screen and (max-width: 600px) {
     line-height: 22px;
     font-size: 18px;
+  }
+}
+
+.max-width-col {
+  width: 100%;
+  margin: 1rem auto;
+
+  max-width: 60%;
+
+
+  @media only screen and (max-width: 600px) {
+    max-width: calc(100% - 4rem)
   }
 }

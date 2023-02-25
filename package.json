@@ -6,10 +6,13 @@
   "private": true,
   "dependencies": {
     "@nrwl/next": "15.7.2",
+    "@storyblok/react": "^2.0.13",
     "bootstrap": "^5.2.3",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-render-markup": "^3.5.0",
+    "react-responsive": "^9.0.2",
     "tslib": "^2.3.0"
   },
   "devDependencies": {

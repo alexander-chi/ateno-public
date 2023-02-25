@@ -1,0 +1,30 @@
+.vr
+  height: 100%
+  width: 1px
+  border-left: white solid 1px
+
+.container
+  min-height: 86px
+  display: flex
+  padding: 1rem 1rem 1rem 2rem
+  border-bottom: white solid 1px
+  position: relative
+  &__inner
+    max-height: 0
+    position: absolute
+    top: calc(100% + 1rem)
+    z-index: 999
+    overflow-x: hidden
+    transition: max-height ease-in-out 0.5s
+    padding: 0 1rem
+
+
+
+    &__right
+      right: 1rem
+  &__expanded
+    max-height: 250px
+
+//.delay
+//  border: none
+//  transition: border ease-in-out 0s 0.5s
