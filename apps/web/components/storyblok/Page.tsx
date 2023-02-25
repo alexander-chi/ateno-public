@@ -6,13 +6,13 @@ interface PageProps {
 
 
 const Page = ({ blok }) => (
-  <div {...storyblokEditable(blok)}>
+  <>
     {blok.body
       ? blok.body.map((blok) => (
           <StoryblokComponent blok={blok} key={blok._uid} />
         ))
       : null}
-  </div>
+  </>
 );
 
 export default Page;

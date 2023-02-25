@@ -23,8 +23,9 @@ code {
     monospace;
 }
 
-p, h1, h2, h3, h4 {
+p, h1, h2, h3, h4, ul, li {
   color: white;
+  line-height: 200%;
 }
 
 hr {
@@ -50,4 +51,11 @@ br {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-
+.white-button {
+  padding: 1rem;
+  cursor: pointer;
+  border: white 1px solid;
+  margin: 1rem auto;
+  background-color: black;
+  color: white;
+}

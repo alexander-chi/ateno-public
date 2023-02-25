@@ -1,0 +1,13 @@
+.container
+  border: solid white 1px
+  padding: 0 1rem
+  margin-bottom: 1rem
+
+  &__content
+    max-height: 0
+    overflow-y: hidden
+    transition: max-height ease-in-out 0.5s
+    padding: 0 0 0 1rem
+
+    &__expanded
+      max-height: 5000px

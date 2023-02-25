@@ -13,9 +13,29 @@ import {Header} from "../components/navigation/header/Header";
 import {Footer} from "../components/navigation/footer/Footer";
 
 //  StoryBlok
-import { storyblokInit, apiPlugin } from "@storyblok/react";
+import {storyblokInit, apiPlugin, getStoryblokApi} from "@storyblok/react";
+import {Line} from "../components/storyblok/Line";
+import {Statement} from "../components/storyblok/Statement";
+import Page from "../components/storyblok/Page";
+import {Markdown} from "../components/storyblok/Markdown";
+import {IFrame} from "../components/storyblok/IFrame";
+import {ButtonLink} from "../components/storyblok/ButtonLink";
+import {Accordion} from "../components/storyblok/Accordion";
 
-const components = {}
+const components = {
+  Line,
+  line: Line,
+  Statement,
+  statement: Statement,
+  Page,
+  page: Page,
+  markdown: Markdown,
+  Markdown,
+  Nav: () => null,
+  iFrame: IFrame,
+  ButtonLink: ButtonLink,
+  Accordion: Accordion
+}
 
 
 storyblokInit({
@@ -26,7 +46,8 @@ storyblokInit({
 
 
 
-function CustomApp({ Component, pageProps }: AppProps) {
+// @ts-ignore
+function CustomApp({ Component, pageProps , story}: AppProps) {
   return (
     <>
       <Head>
@@ -46,11 +67,25 @@ function CustomApp({ Component, pageProps }: AppProps) {
           Ateno Systems Ltd
         </title>
       </Head>
-      <Header/>
-      <Component {...pageProps}/>
+      <Header story={story}/>
+      <div className={'max-width-col'}>
+        <Component {...pageProps}/>
+      </div>
+
       <Footer/>
     </>
   );
 }
 
+CustomApp.getInitialProps = async (ctx) => {
+  let { data } = await getStoryblokApi().get(`cdn/stories/nav`);
+
+  return {
+    story: data ? data.story : false,
+    key: data ? data.story.id : false,
+  };
+}
+
 export default CustomApp;
+
+

@@ -7,9 +7,9 @@ import desktopStyles from './navbar/NavbarCategory.desktop.module.sass'
 
 import {useMediaQuery} from "react-responsive";
 import {NavbarCategoryDesktop} from "./navbar/NavbarCategory.desktop";
-import {navigation_content} from "./navigation_content";
 
-export const Header = () => {
+
+export const Header = ({story}) => {
   const [up, setUp] = useState(false)
   const [expanded, setExpanded] = useState(false)
   const [expandedMenu, setExpandedMenu] = useState(-1)
@@ -67,24 +67,20 @@ export const Header = () => {
             </div>
           </div>
           <div className={'overflow-y-scroll'}>
-            <NavbarCategoryMobile title={navigation_content.services.title}
-                                  subCategories={navigation_content.services.subCategories}
-                                  onNavigate={handleNavigate}
-                                  expanded={expandedMenu === 0}
-                                  setExpanded={(value) => handleExpandMenu(0, value)}
-            />
-            <NavbarCategoryMobile title={navigation_content.partners.title}
-                                  onNavigate={handleNavigate}
-                                  subCategories={navigation_content.partners.subCategories}
-                                  expanded={expandedMenu === 1}
-                                  setExpanded={(value) => handleExpandMenu(1, value)}
-            />
-            <NavbarCategoryMobile title={navigation_content.careers.title}
-                                  onNavigate={handleNavigate}
-                                  subCategories={navigation_content.careers.subCategories}
-                                  expanded={expandedMenu === 2}
-                                  setExpanded={(value) => handleExpandMenu(2, value)}
-            />
+            {story.content.categories.map((category, index) => {
+              return (
+                <>
+                  <NavbarCategoryMobile title={category.title}
+                                         subCategories={category.subCategories}
+                                         onNavigate={handleNavigate}
+                                         expanded={expandedMenu === index}
+                                         setExpanded={(value) => handleExpandMenu(index, value)}
+                                         key={category._uid}
+                  />
+
+                </>
+              )
+            })}
           </div>
          </div>
       </div>
@@ -97,27 +93,21 @@ export const Header = () => {
           <p className={`logo ${up ? 'logo__up' : 'logo__down'}`}>O</p>
         </div>
         <div className={'d-flex ml-auto'}>
-          <NavbarCategoryDesktop title={navigation_content.services.title}
-                                 subCategories={navigation_content.services.subCategories}
-                                 onNavigate={handleNavigate}
-                                 expanded={expandedMenu === 0}
-                                 setExpanded={(value) => handleExpandMenu(0, value)}
-          />
-          <div className={desktopStyles.vr}/>
-          <NavbarCategoryDesktop title={navigation_content.partners.title}
-                                 subCategories={navigation_content.partners.subCategories}
-                                 onNavigate={handleNavigate}
-                                 expanded={expandedMenu === 1}
-                                 setExpanded={(value) => handleExpandMenu(1, value)}
-          />
-          <div className={desktopStyles.vr}/>
-          <NavbarCategoryDesktop align={'right'}
-                                 title={navigation_content.careers.title}
-                                 subCategories={navigation_content.careers.subCategories}
-                                 onNavigate={handleNavigate}
-                                 expanded={expandedMenu === 2}
-                                 setExpanded={(value) => handleExpandMenu(2, value)}
-          />
+          {story.content.categories.map((category, index) => {
+            return (
+              <>
+                {index > 0 && <div className={desktopStyles.vr} key={index}/>}
+                <NavbarCategoryDesktop title={category.title}
+                                       subCategories={category.subCategories}
+                                       onNavigate={handleNavigate}
+                                       expanded={expandedMenu === index}
+                                       setExpanded={(value) => handleExpandMenu(index, value)}
+                                       key={category._uid}
+                />
+
+              </>
+            )
+          })}
         </div>
       </div>
     )

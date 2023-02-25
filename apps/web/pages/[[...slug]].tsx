@@ -4,8 +4,10 @@ import {
   StoryblokComponent,
 } from "@storyblok/react";
 
-export default function Page({ story, locale, locales, defaultLocale }) {
-  story = useStoryblokState(story,);
+export default function Page({ story}) {
+
+
+  story = useStoryblokState(story);
 
   return (
     <StoryblokComponent blok={story.content} />
@@ -13,36 +15,24 @@ export default function Page({ story, locale, locales, defaultLocale }) {
 }
 
 export async function getStaticProps({
-  locale,
-  locales,
-  defaultLocale,
   params,
 }) {
   let slug = params.slug ? params.slug.join("/") : "home";
 
-  let sbParams = {
-    version: "draft",
-    resolve_relations: ["featured-posts.posts", "selected-posts.posts"],
-    language: locale,
-  };
-
-  // @ts-ignore
-  let { data } = await getStoryblokApi().get(`cdn/stories/${slug}`, sbParams);
+  let { data } = await getStoryblokApi().get(`cdn/stories/${slug}`);
 
   return {
     props: {
       story: data ? data.story : false,
       key: data ? data.story.id : false,
-      locale,
-      locales,
-      defaultLocale,
     },
     revalidate: 3600,
   };
 }
 
-export async function getStaticPaths({ locales }) {
+export async function getStaticPaths() {
   let { data } = await getStoryblokApi().get("cdn/links/");
+
 
   let paths = [];
   Object.keys(data.links).forEach((linkKey) => {
@@ -55,10 +45,7 @@ export async function getStaticPaths({ locales }) {
     let splittedSlug = slug.split("/");
     if (slug === "home") splittedSlug = false;
 
-    // create additional languages
-    for (const locale of locales) {
-      paths.push({ params: { slug: splittedSlug }, locale });
-    }
+    paths.push({ params: { slug: splittedSlug }});
   });
 
   return {
